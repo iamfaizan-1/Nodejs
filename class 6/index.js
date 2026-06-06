@@ -1,0 +1,62 @@
+import e from "express";
+const app = e();
+
+app.listen(3000,()=>{
+    console.log("server is running on port 3000")
+})
+
+app.use(e.json())
+app.use(e.urlencoded({extended:false}))
+// app.get("/",(req,res)=>{
+//     res.send("Hello world")
+// })
+
+// app.get("/about",(req,res)=>{
+//     res.send("This is about page")
+
+// })
+
+// app.get('/contact',(req,res)=>{
+//     res.send("This is contact page")
+// })
+
+// app.get("/user/:userid",(req,res)=>{
+//     res.send(req.params)
+// })
+// app.get("/user",(req,res)=>{
+//     res.send("welcome user")
+// })
+
+// app.get("/search",(req,res)=>{
+//     const name= req.query.name;
+//     const age = req.query.age;
+//     res.send(`The name is ${name} and age is ${age}`)
+// })
+
+
+app.get("/",(req,res)=>{
+    res.send(
+        {
+            name:"faizan",
+            age:20
+        }
+    )
+})
+
+app.get("/user",(req,res)=>{
+    res.json(
+        {
+            name:"faizan",
+            age:20
+        }
+    )
+})
+
+app.get("/about",(req,res)=>{
+    res.status(200).send("This is about page")
+    
+})
+
+app.post("/about",(req,res)=>{
+    res.send(req.body)
+})
