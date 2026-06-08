@@ -5,8 +5,8 @@ app.listen(3000,()=>{
     console.log("server is running on port 3000")
 })
 
-app.use(e.json())
-app.use(e.urlencoded({extended:false}))
+// app.use(e.json())
+// app.use(e.urlencoded({extended:false}))
 // app.get("/",(req,res)=>{
 //     res.send("Hello world")
 // })
@@ -34,29 +34,64 @@ app.use(e.urlencoded({extended:false}))
 // })
 
 
+// app.get("/",(req,res)=>{
+//     res.send(
+//         {
+//             name:"faizan",
+//             age:20
+//         }
+//     )
+// })
+
+// app.get("/user",(req,res)=>{
+//     res.json(
+//         {
+//             name:"faizan",
+//             age:20
+//         }
+//     )
+// })
+
+// app.get("/about",(req,res)=>{
+//     res.status(200).send("This is about page")
+    
+// })
+
+// app.post("/about",(req,res)=>{
+//     res.send(req.body)
+// })
+
+
+// 8.june EJS template engine
+
+app.set("view engine","ejs")
+
 app.get("/",(req,res)=>{
-    res.send(
-        {
-            name:"faizan",
-            age:20
-        }
-    )
+    res.send("WElcome to home page")
 })
 
-app.get("/user",(req,res)=>{
-    res.json(
-        {
-            name:"faizan",
-            age:20
-        }
-    )
-})
+// app.get("/about",(req,res)=>{
+//     let fruits = ['Apple','Mango','Banana','cherry','grapes'];
+//     res.render("about",{
+//         title:'About Page',
+//         message:'welcome to EJS',
+//         items:fruits
+//     })
+// })
+
 
 app.get("/about",(req,res)=>{
-    res.status(200).send("This is about page")
-    
-})
-
-app.post("/about",(req,res)=>{
-    res.send(req.body)
+   
+   let users = [
+    {name:"faizan",age:20,city:"Karachi"},
+    {name:"Ahmed",age:20,city:"Karachi"},
+    {name:"Abdul Rehman",age:20,city:"Karachi"}
+   ]
+    res.render('about',
+        {
+            title:"About Page",
+            message: "We are learning express js",
+            items:users
+        }
+    )
 })
