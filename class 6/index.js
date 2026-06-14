@@ -5,6 +5,7 @@ app.listen(3000,()=>{
     console.log("server is running on port 3000")
 })
 
+app.use(e.urlencoded({extended:false}))
 // app.use(e.json())
 // app.use(e.urlencoded({extended:false}))
 // app.get("/",(req,res)=>{
@@ -111,5 +112,26 @@ res.render('contact',{
     description: "This is a contact page",
     information:info
 })
+})
 
+app.get("/form",(req,res)=>{
+    res.render("form",{
+         message:null
+ 
+    })
+})
+
+
+app.post("/submit",(req,res)=>{
+const name = req.body.myname;
+// const age = req.body.myage;
+// const email = req.body.myemail;
+
+const message = `Hello ${name} you submit the form`
+res.render("form",{
+
+    message:message
+    // age: age,
+    // email:email
+})
 })
