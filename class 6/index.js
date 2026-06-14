@@ -95,3 +95,21 @@ app.get("/about",(req,res)=>{
         }
     )
 })
+
+
+app.get('/contact',(req,res)=>{
+let info = [
+    {name:"faizan",contact:3323122},
+    {
+        name:"ahmed",contact:43231212
+    }
+]
+
+
+res.render('contact',{
+    title:"contact page",
+    description: "This is a contact page",
+    information:info
+})
+
+})
