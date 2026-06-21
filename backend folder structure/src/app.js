@@ -1,54 +1,75 @@
 // This file is used for creating the server
 
 const express = require("express")
-
+const noteModel = require("./models/note.model")
 const app = express()
 app.use(express.json())
 
-let notes = []
 
 
-app.post("/notes",(req,res)=>{
 
-notes.push(req.body)
+app.post("/notes",async (req,res)=>{
 
-res.status(201).json({
-    message:"note has been created successfully"
+    const data = req.body
+ await   noteModel.create({
+        title:data.title,
+        description:data.description
+    })
+
+
+    res.status(201).json({
+        message:"note created successfully"
+    })
 })
 
-})
 
-app.get("/notes",(req,res)=>{
+app.get("/notes",async(req,res)=>{
+    const notes = await noteModel.find()
+    // return array of object
+
+
+// const notes = await noteModel.find(
+//     {
+//         title:"2"
+//     }
+// )
+
+// const notes = await noteModel.findOne({
+//     title:"2"
+// })
+
+
+// find one returns and object while find returns an array
 
     res.status(201).json({
         message:"notes fetched successfully",
         notes:notes
     })
+
 })
 
-app.delete("/notes/:index",(req,res)=>{
 
-    const index = req.params.index
-    delete notes[index]
+app.delete("/notes/:id",async (req,res)=>{
+
+    const id = req.params.id
+    await noteModel.findOneAndDelete({
+        _id:id
+    })
 
     res.status(201).json({
-        message:"note deleted successsfully"
+        message:"note deleted successfully"
     })
+
 })
 
-
-app.patch("/notes/:index",(req,res)=>{
-    const index = req.params.index
+app.patch("/notes/:id",async(req,res)=>{
+    const id = req.params.id
     const description = req.body.description
+   await noteModel.findOneAndUpdate({_id:id},{description:description})
 
-    notes[index].description = description
-
-    res.status(201).json({
-        message:"note updated successfully"
-    })
+   res.status(201).json({
+    message:"note updated successfully"
+   })
 })
-
-
-
 
 module.exports = app 
