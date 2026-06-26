@@ -7,6 +7,16 @@ const registerUser =async (req,res)=>{
 
     const {userName,userEmail,userPassword} = req.body
 
+const UserExists = await userModel.findOne({
+   userEmail
+}) 
+
+if(UserExists){
+    return res.status(409).json({
+        message:"User already exists"
+    })
+}
+
     const user = await userModel.create({
         userName, userEmail, userPassword
     })
@@ -15,7 +25,7 @@ const token = jwt.sign({
     id:user._id
 },process.env.JWT_SECRET)
 
-res.cookie("userToken",token)
+res.cookie("token",token)
 
 
 
